@@ -11,7 +11,7 @@ def get_info_by_ip(ip: str = '127.0.0.1') -> tuple[dict[str, str], folium.Map] |
     try:
         response = requests.get(url=f'http://ip-api.com/json/{ip}').json()
     except requests.exceptions.ConnectionError:
-        return '[!] Please check your connection!'
+        return '[!] Проверьте интернет соединение'
     data = {
         '[IP]': response.get('query'),
         '[Int prov]': response.get('isp'),

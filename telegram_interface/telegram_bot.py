@@ -1,8 +1,12 @@
 """
 Данный модуль является основным для реализации логики с телеграмм ботом
+TODO:
+Добавить в меню возможность запуска из-под кнопок меню
 """
+# Конфигурация бота
+from config import BOT_TOKEN
+
 # Встроенные библиотеки или посторонние
-import os
 import asyncio
 
 # Aiogram импорты и дополнение к интерфейсу
@@ -11,16 +15,13 @@ import string_content
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.types import Message
-from dotenv import load_dotenv
 
 # Мои заготовленные скрипты
 
 
 #######################################################################################################################
-
-load_dotenv()
 # Связываемся с нашим ботом, используя Telegram API
-bot: Bot = Bot(os.getenv("TOKEN"), parse_mode="HTML")
+bot: Bot = Bot(BOT_TOKEN, parse_mode="HTML")
 # Класс, который отвечает за обработку событий нашего бота, установка хендлеров и т.п
 dp: Dispatcher = Dispatcher()
 
@@ -35,20 +36,21 @@ async def start_message(message: Message):
     :param message: сообщение в Telegram
     :return: ответ, где будут указаны возможности мои бота
     """
-    await message.reply(f"Привет <b>{message.from_user.first_name}</b>!", **string_content.content.as_kwargs())
+    await message.reply(f"Привет <b>{message.from_user.first_name}</b>!")
+    await message.answer(**string_content.content.as_kwargs())
 
 
-@dp.message(Command(commands=["support", "Поддержка"], ignore_case=True))
+@dp.message(F.text.lower().in_(["/support", "поддержка"]))
 async def support_message(message: Message):
     """
-    Этот handler будет срабатывать на команду "/help"
+    Этот handler будет срабатывать на команду "/support"
     :param message: сообщение в Telegram
     :return: ответ, где будут указаны мои контакты для помощи
     """
     await message.answer(string_content.text_support, reply_markup=keyboards_telegram.help_kb)
 
 
-@dp.message(Command(commands=["menu", "Меню возможностей"], ignore_case=True))
+@dp.message(F.text.lower().in_(["/menu", "меню возможностей", "меню"]))
 async def help_message(message: Message):
     """
     Этот handler будет срабатывать на команду "/menu"
