@@ -22,7 +22,6 @@ pip==23.3.1
 plum-py==0.8.7
 pydantic-core==2.6.3
 pydantic==2.3.0
-python-dotenv==1.0.0
 requests==2.31.0
 setuptools==68.2.2
 typing-extensions==4.7.1
@@ -30,3 +29,4 @@ urllib3==2.0.7
 wheel==0.41.3
 yarl==1.9.2
 pypdf2~=3.0.1
+environs~=9.5.0

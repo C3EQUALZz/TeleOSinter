@@ -2,7 +2,7 @@
 Оригинальный код взят с PythonToday и немного доработан
 Ссылка на видео: https://youtu.be/IZOq_sOtLz0?si=tajJXjtHiJiWxniq
 """
-
+__all__ = ["get_info_by_ip"]
 import requests
 import folium
 

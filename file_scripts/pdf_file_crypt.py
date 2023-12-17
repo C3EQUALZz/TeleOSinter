@@ -2,8 +2,11 @@
 Добавить исправления в коде
 Оригинал взят отсюда: https://youtu.be/Pr-DsUzgd_A?si=CsoBm-CAoH6OX0eY
 """
-from PyPDF2 import PdfFileWriter, PdfFileReader
+__all__ = ["encrypt_file", "decrypt_file"]
+
 import sys
+
+from PyPDF2 import PdfFileWriter, PdfFileReader
 
 
 def encrypt_file():

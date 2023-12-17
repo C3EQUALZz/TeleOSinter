@@ -13,8 +13,8 @@ import asyncio
 import keyboards_telegram
 import string_content
 from aiogram import Bot, Dispatcher, F
-from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.filters import Command, ChatMemberUpdatedFilter, MEMBER, KICKED
+from aiogram.types import Message, ChatMemberUpdated
 
 # Мои заготовленные скрипты
 
@@ -70,6 +70,17 @@ async def photo_message(message: Message):
     :return: Метаданные с фото.
     """
     pass
+
+
+########################################################################################################################
+@dp.my_chat_member(ChatMemberUpdatedFilter(member_status_changed=KICKED))
+async def process_user_blocked_bot(event: ChatMemberUpdated):
+    print(f"Пользователь {event.from_user.id} заблокировал бота")
+
+
+@dp.my_chat_member(ChatMemberUpdatedFilter(member_status_changed=MEMBER))
+async def process_user_unblocked_bot(event: ChatMemberUpdated):
+    await bot.send_message(chat_id=event.from_user.id, text=f'{event.from_user.first_name}, добро пожаловать обратно!')
 
 
 @dp.message()
