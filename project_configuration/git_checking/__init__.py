@@ -1,0 +1,1 @@
+from .check_git_installed import install_git

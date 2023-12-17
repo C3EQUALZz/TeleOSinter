@@ -1,0 +1,1 @@
+from .check_telecron_installed import install_telerecon_repository
