@@ -1,9 +1,13 @@
 """
 Данный модуль создан для обработки интернациональных номеров телефона
 Библиотека phonenumbers поддерживает только зарубежные номера телефонов
+Здесь скорее всего не имеет смысл делать асинхронно, потому что функции синхронны, но для удобства сделал так.
 """
 
+__all__ = ["get_info_from_phonenumbers"]
+
 from enum import Enum
+
 import phonenumbers
 from phonenumbers import carrier, geocoder, timezone
 
@@ -27,37 +31,53 @@ class TypePhone(Enum):
         return list(TypePhone)[item]
 
 
-def get_info_about_number(number: str):
-    try:
-        phone = phonenumbers.parse(number)
-    except phonenumbers.NumberParseException:
-        return "Неправильно ввели номер телефона, возможно отсутствует ссылка на регион"
+async def get_info_from_phonenumbers(phone: phonenumbers.PhoneNumber):
+    titles = ("Тип телефона", "Провайдер", "Регион", "Часовой пояс")
 
-    return (f"Тип телефона: {type_of_number(phone).value}\nПровайдер: {operator_of_number(phone)}\n"
-            f"Регион: {region_of_number(phone)}\nЧасовой пояс: {timezone_of_number(phone)}")
+    source_name = "\U0001F4AC Информация, полученная с phonenumbers\n"
+
+    info_about_person = await _get_all_info_phone_numbers(phone)
+
+    return source_name + '\n'.join(
+        f"{paragraph}: {info}" for paragraph, info in zip(titles, info_about_person))
 
 
-def type_of_number(phone: phonenumbers.PhoneNumber) -> TypePhone:
+async def _get_all_info_phone_numbers(phone: phonenumbers.PhoneNumber) -> tuple[str, ...]:
+    """
+    Служит интерфейсом для получения всей информации, используя phonenumbers.
+    :param phone: Номер телефона, который отправил пользователь.
+    :return: Возвращает кортеж с функциями, которые используются для определения всех параметров с phonenumbers
+    """
+    return (
+        await _type_of_number(phone),
+        await _operator_of_number(phone),
+        await _region_of_number(phone),
+        await _timezone_of_number(phone)
+    )
+
+
+async def _type_of_number(phone: phonenumbers.PhoneNumber) -> str:
     """
     Определяет тип номера телефона (частный, мобильный, домашний и т.п).
     :param phone: Номер телефона, который обработан phonenumber.parse().
     :return: Тип, к которому относится наш номер телефона. Результат - str.
     """
-    if not phonenumbers.is_valid_number(phone):
-        return TypePhone.UNKNOWN
-    return TypePhone.get(phonenumbers.number_type(phone))
+    if phonenumbers.is_valid_number(phone):
+        return TypePhone.get(phonenumbers.number_type(phone)).value
+    return TypePhone.UNKNOWN.value
 
 
-def operator_of_number(phone: phonenumbers.PhoneNumber) -> str:
+async def _operator_of_number(phone: phonenumbers.PhoneNumber) -> str:
     """
     Определяет оператора, к которому принадлежит номер телефона.
     :param phone: Номер телефона, который обработан phonenumber.parse().
     :return: Название оператора в виде str
     """
-    return phonenumbers.carrier.name_for_number(phone, lang="en")
+    res = phonenumbers.carrier.name_for_number(phone, lang="en")
+    return res if res else "Нет информации по провайдеру"
 
 
-def region_of_number(phone: phonenumbers.PhoneNumber) -> str:
+async def _region_of_number(phone: phonenumbers.PhoneNumber) -> str:
     """
     Определяет регион оператора, к которому принадлежит номер телефона.
     :param phone: Номер телефона, который обработан phonenumber.parse().
@@ -66,7 +86,7 @@ def region_of_number(phone: phonenumbers.PhoneNumber) -> str:
     return geocoder.description_for_number(phone, 'ru')
 
 
-def timezone_of_number(phone: phonenumbers.PhoneNumber) -> str:
+async def _timezone_of_number(phone: phonenumbers.PhoneNumber) -> str:
     """
     Определяет часовой пояс, к которому принадлежит номер телефона.
     :param phone: Номер телефона, который обработан phonenumbers.parse().
