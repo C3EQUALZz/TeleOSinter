@@ -31,7 +31,13 @@ class TypePhone(Enum):
         return list(TypePhone)[item]
 
 
-async def get_info_from_phonenumbers(phone: phonenumbers.PhoneNumber):
+async def get_info_from_phonenumbers(phone: phonenumbers.PhoneNumber) -> str:
+    """
+    Обработка вывода всех функций для добавления в сообщения.
+    Здесь мы получаем всю информацию с phonenumbers.
+    :param phone: Номер телефона, который отправил человек.
+    :return: Возвращает номер телефона пользователя.
+    """
     titles = ("Тип телефона", "Провайдер", "Регион", "Часовой пояс")
 
     source_name = "\U0001F4AC Информация, полученная с phonenumbers\n"
