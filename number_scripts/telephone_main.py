@@ -31,17 +31,17 @@ async def _extract_info(number: phonenumbers.PhoneNumber) -> str:
     :return: полную информацию со всех OSINT источников
     """
 
-    functions = [getattr(international_numbers, attr)
-                 for attr in dir(international_numbers) if callable(getattr(international_numbers, attr))]
+    functions = (getattr(international_numbers, attr)
+                 for attr in dir(international_numbers) if callable(getattr(international_numbers, attr)))
 
     results = await asyncio.gather(*(func(number) for func in functions))
     return "\n\n".join(results)
 
 
-# async def main():
-#     result = await get_info_about_number("+37160006110")
-#     print(result)
-#
-#
-# if __name__ == "__main__":
-#     asyncio.run(main())
+async def main():
+    result = await get_info_about_number("+37160006110")
+    print(result)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
