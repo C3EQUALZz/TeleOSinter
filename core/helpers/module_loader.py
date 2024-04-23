@@ -1,8 +1,14 @@
+"""
+Данный модуль нужен с той целью, чтобы автоматически пробрасывать классы,
+которые осуществляют поиск по открытым источникам.
+"""
+
 import pkgutil
 import importlib
+import types
 
 
-def load_modules(path: str) -> dict:
+def load_modules(path: str) -> dict[str, types.ModuleType]:
     """
     Функция для динамической загрузки всех модулей в указанном пути.
 
