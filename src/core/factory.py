@@ -4,7 +4,7 @@
 Здесь у меня определяется коряво с помощью паттернов, которые проверяют текст,
 а потом в зависимости от содержания запускают логику.
 """
-from src.core.email_scripts import EmailProcessor
+from core.email_scripts import EmailProcessor
 import re
 
 

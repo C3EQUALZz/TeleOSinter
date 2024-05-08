@@ -5,13 +5,14 @@
 
 import re
 import asyncio
-from src.core.email_scripts.interface import EmailSearcher
+from core.email_scripts.interface import EmailSearcher
 
 
 class Holehe(EmailSearcher):
     """
     Получает информацию, используя https://github.com/megadose/holehe
     """
+
     @staticmethod
     async def search(email: str) -> str:
         """
