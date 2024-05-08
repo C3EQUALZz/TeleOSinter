@@ -9,7 +9,7 @@ beautifulsoup4==4.12.2
 branca==0.7.0
 bs4==0.0.1
 certifi==2023.11.17
-chardet==3.0.4
+chardet==5.2.0
 charset-normalizer==3.3.2
 environs==10.0.0
 exif==1.6.0
@@ -50,4 +50,11 @@ yarl==1.9.4
 holehe
 setuptools
 wheel
+flake8==7.0.0
+tox==4.15.0
+mypy==1.10.0
+pytest==8.1.1
+pytest-mock==3.14.0
+pytest-asyncio==0.23.6
+pytest-cov==5.0.0
 

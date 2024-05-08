@@ -10,6 +10,10 @@ version = "05.05.2024"
 
 requires-python = ">=3.12.0"
 
+package_dir = "src"
+
+zip_safe = "no"
+
 description = """
 Osint tool for finding information about different persons.
 This tool uses other ready-made projects.
@@ -89,9 +93,6 @@ dependencies = [
     "xyzservices==2023.10.1",
     "yarl==1.9.4",
     "holehe",
-    "pytest",
-    "pytest-mock",
-    "pytest-asyncio",
     "wheel"
 ]
 
@@ -105,7 +106,10 @@ testing = [
     "pytest-cov>=2.0",
     "mypy>=0.910",
     "flake8>=3.9",
-    "tox>=3.24"
+    "tox>=3.24",
+    "pytest-mock",
+    "pytest-asyncio",
+    "mypy"
 ]
 
 [options.package_data]
@@ -114,6 +118,28 @@ core = "py.typed"
 [flake8]
 max-line-length = 160
 
+[tool.pytest.ini-options]
+addopts = "--cov=core"
+testpaths = [
+    "tests",
+]
+
+[tool.mypy]
+mypy_path = "src"
+strict = true
+check_untyped_defs = true
+disallow_any_generics = true
+no_implicit_optional = true
+ignore_missing_imports = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+no_implicit_reexport = true
+namespace_packages = true
+explicit_package_bases = true
 
 
 
