@@ -48,8 +48,6 @@ urllib3==2.1.0
 xyzservices==2023.10.1
 yarl==1.9.4
 holehe
-pytest
-pytest-mock
-pytest-asyncio
 setuptools
 wheel
+

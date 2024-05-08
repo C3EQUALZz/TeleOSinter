@@ -91,7 +91,8 @@ dependencies = [
     "holehe",
     "pytest",
     "pytest-mock",
-    "pytest-asyncio"
+    "pytest-asyncio",
+    "wheel"
 ]
 
 [project.urls]
