@@ -5,7 +5,7 @@
 
 import re
 import asyncio
-from core.email_scripts.interface import EmailSearcher
+from src.core.email_scripts.interface import EmailSearcher
 
 
 class Holehe(EmailSearcher):

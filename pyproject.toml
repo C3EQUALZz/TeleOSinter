@@ -98,5 +98,21 @@ dependencies = [
 Repository = "https://github.com/C3EQUALZz/TeleOSinter"
 "Bug Tracker" = "https://github.com/C3EQUALZz/TeleOSinter/issues"
 
+[options.extras_require]
+testing = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "mypy>=0.910",
+    "flake8>=3.9",
+    "tox>=3.24"
+]
+
+[options.package_data]
+core = "py.typed"
+
+[flake8]
+max-line-length = 160
+
+
 
 

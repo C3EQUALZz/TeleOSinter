@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from core.email_scripts import EmailProcessor
-from core.factory import ProcessorFactory
+from src.core import EmailProcessor
+from src.core.factory import ProcessorFactory
 
 
 def test_is_email_example_dot_com():

@@ -51,3 +51,5 @@ holehe
 pytest
 pytest-mock
 pytest-asyncio
+setuptools
+wheel

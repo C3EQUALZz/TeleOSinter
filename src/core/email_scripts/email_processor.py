@@ -1,9 +1,9 @@
 import asyncio
 from typing import LiteralString
 
-from core.email_scripts import utils
-from core.email_scripts.interface import EmailSearcher
-from core.processor import Processor
+from src.core.email_scripts import utils
+from src.core.email_scripts.interface import EmailSearcher
+from src.core.processor import Processor
 
 
 class EmailProcessor(Processor):
