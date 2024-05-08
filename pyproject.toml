@@ -118,7 +118,7 @@ core = "py.typed"
 [flake8]
 max-line-length = 160
 
-[tool.pytest.ini-options]
+[tool.pytest.ini_options]
 addopts = "--cov=core"
 testpaths = [
     "tests",
