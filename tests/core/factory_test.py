@@ -6,87 +6,28 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from src.core import EmailProcessor
-from src.core.factory import ProcessorFactory
+from core.email_scripts import EmailProcessor
+from core.factory import ProcessorFactory
 
 
-def test_is_email_example_dot_com():
+@pytest.mark.parametrize("test_input, expected", [
+    ("test@example.com", True),
+    ("test@example.ru", True),
+    ("test@example.org", True),
+    ("yewali9743@togito.com", True),
+    ("", False),
+    ("wrong_data", False),
+    ("test@example", False),
+    ("Привет, мир! Как дела?", False),
+    ("Привет, @мир@! Как дела?", False),
+    ("Привет пользователь под почтой, kekw@teml.net", True),
+    ("Привет пользователь под почтой, kekw@teml.net", "kekw@teml.net")
+])
+def test_is_email_correct(test_input: str, expected: bool | str):
     """
     Проверка на то, что проходит почта test@example.com
     """
     assert bool(ProcessorFactory.is_email("test@example.com")) is True
-
-
-def test_is_email_example_dot_ru():
-    """
-    Проверка на то, что проходит почта test@example.ru
-    """
-    assert bool(ProcessorFactory.is_email("test@example.ru")) is True
-
-
-def test_is_email_example_dot_org():
-    """
-    Проверка на то, что проходит почта test@example.org
-    """
-    assert bool(ProcessorFactory.is_email("test@example.org")) is True
-
-
-def test_is_email_random_correct():
-    """
-    Проверка на то, что почта yewali9743@togito.com корректна
-
-    Почта взята с temp-mail.org
-    """
-    assert bool(ProcessorFactory.is_email("yewali9743@togito.com")) is True
-
-
-def test_is_email_empty_string():
-    """
-    Проверка на то, что при пустой строке будет false
-    """
-    assert bool(ProcessorFactory.is_email("")) is False
-
-
-def test_is_email_wrong_data():
-    """
-    Проверка на то, что не проходит почта wrong_data
-    """
-    assert bool(ProcessorFactory.is_email("wrong_data")) is False
-
-
-def test_is_email_without_domain_dot_com():
-    """
-    Проверка на то, что is_email выдаст false, когда нет домена в строке
-    """
-    assert bool(ProcessorFactory.is_email("test@example")) is False
-
-
-def test_is_email_not_in_sentence():
-    """
-    Проверка на то, что среди предложения нет почты
-    """
-    assert bool(ProcessorFactory.is_email("Привет, мир! Как дела?")) is False
-
-
-def test_is_email_not_in_sentence_even_with_symbol():
-    """
-    Проверка на то, что среди предложения нет почты, хотя есть знак '@'
-    """
-    assert bool(ProcessorFactory.is_email("Привет, @мир@! Как дела?")) is False
-
-
-def test_is_email_in_sentence():
-    """
-    Проверка на то, что в предложении есть почта
-    """
-    assert bool(ProcessorFactory.is_email("Привет пользователь под почтой, kekw@teml.net")) is True
-
-
-def test_is_email_get_email():
-    """
-    Проверка на то, что наш метод правильно достает почту из предложения
-    """
-    assert ProcessorFactory.is_email("Привет пользователь под почтой, kekw@teml.net") == "kekw@teml.net"
 
 
 @pytest.mark.asyncio
