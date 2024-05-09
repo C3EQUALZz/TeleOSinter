@@ -113,9 +113,17 @@ core = "py.typed"
 
 [flake8]
 max-line-length = 160
+exclude = [
+    ".git",
+    "__pycache__",
+    "env",
+    "venv"
+]
+max-complexity = 8
+
 
 [tool.pytest.ini_options]
-addopts = "--cov=core"
+addopts = "--cov=teleosinter"
 testpaths = [
     "tests",
 ]

@@ -3,7 +3,7 @@
 """
 import asyncio
 import phonenumbers
-import international_numbers
+from teleosinter.phone_scripts import international_numbers
 
 
 async def get_info_about_number(number: str) -> str:

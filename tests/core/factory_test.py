@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from core.email_scripts import EmailProcessor
-from core.factory import ProcessorFactory
+from teleosinter.core.factory import ProcessorFactory
+from teleosinter.email_scripts import EmailProcessor
 
 
 @pytest.mark.parametrize("test_input, expected", [
@@ -58,7 +58,7 @@ async def test_create_processor_if_email_sentence(mocker):
         return_value="Email processed"
     )
 
-    result = await ProcessorFactory.create_processor("My email is test@example.com")
+    result = await ProcessorFactory.create_processor("My email_utils is test@example.com")
 
     assert isinstance(result, str)
     assert len(result) > 0
@@ -76,7 +76,7 @@ async def test_create_processor_if_email_not_in_sentence():
     содержащие адрес электронной почты. В частности, тест проверяет, что при отсутствии адреса
     электронной почты в сообщении не вызывается ни один метод, возвращается, что ничего не найдено
     """
-    result = await ProcessorFactory.create_processor("My email is test@example")
+    result = await ProcessorFactory.create_processor("My email_utils is test@example")
 
     assert isinstance(result, str)
     assert len(result) > 0

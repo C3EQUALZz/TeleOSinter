@@ -4,7 +4,7 @@
 Здесь у меня определяется коряво с помощью паттернов, которые проверяют текст,
 а потом в зависимости от содержания запускают логику.
 """
-from core.email_scripts import EmailProcessor
+from teleosinter.email_scripts import EmailProcessor
 import re
 
 
@@ -12,7 +12,8 @@ class ProcessorFactory:
     """
     Класс, который реализует паттерн фабричный метод.
     Он нужен нам для того, чтобы в зависимости от сообщения запускалась нужная обработка.
-    """
+    """  # noqa: E501
+
     @staticmethod
     def is_email(message: str) -> str | bool:
         """
@@ -28,7 +29,8 @@ class ProcessorFactory:
     async def create_processor(message: str) -> str:
         """
         Фабричный метод, который создает в зависимости от сообщения нужную обработку
-        """
+        """  # noqa: E501
+
         if email := ProcessorFactory.is_email(message):
             return await EmailProcessor().handle(email=email)
 

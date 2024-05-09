@@ -44,7 +44,7 @@ async def update_files_for_phoneinfoga(directory_path: str) -> None:
     # текущее время системы
     current_time = datetime.now().timestamp()
     # Раз в неделю будут скачиваться заново файлы или если у пользователя не существует папки osint в данном проекте
-    if current_time - date_creating_file > 7 * 24 * 60 * 60 or len(tuple(pathlib.Path('.').iterdir())):
+    if current_time - date_creating_file > 7 * 24 * 60 * 60 or len(tuple(pathlib.Path('').iterdir())):
         await _download_files(directory_path)
 
 

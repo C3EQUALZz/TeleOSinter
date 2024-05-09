@@ -1,6 +1,0 @@
-class NoSupport(Exception):
-    ...
-
-
-class DownloadError(Exception):
-    ...

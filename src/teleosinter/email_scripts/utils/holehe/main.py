@@ -1,11 +1,12 @@
 """
 Здесь я пользуюсь терминальной версией скрипта holehe https://github.com/megadose/holehe
 По умолчанию он асинхронный, поэтому я использовал такой интерфейс.
+# noqa: E501
 """
 
 import re
 import asyncio
-from core.email_scripts.interface import EmailSearcher
+from teleosinter.core._email_utils.interface import EmailSearcher
 
 
 class Holehe(EmailSearcher):
@@ -33,5 +34,9 @@ class Holehe(EmailSearcher):
 
         return "😈 Результат поиска holehe:\n" + '\n'.join(
             match.group()
-            for match in re.finditer(r"\[.].+", stdout.decode(), re.MULTILINE | re.IGNORECASE)
+            for match in re.finditer(
+                r"\[.].+",
+                stdout.decode(),
+                re.MULTILINE | re.IGNORECASE
+            )
         )
