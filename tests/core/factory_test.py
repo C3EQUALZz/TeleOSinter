@@ -6,8 +6,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from teleosinter.core.factory import ProcessorFactory
-from teleosinter.email_scripts import EmailProcessor
+from teleosinter import ProcessorFactory
+from teleosinter import EmailProcessor
 
 
 @pytest.mark.parametrize("test_input, expected", [

@@ -2,8 +2,11 @@
 Данный модуль служит интерфейсом для взаимодействия
 """
 import asyncio
+from typing import Generator, Any
+
 import phonenumbers
 from teleosinter.phone_scripts import international_numbers
+from teleosinter.core.abstract import PhoneParser
 
 
 async def get_info_about_number(number: str) -> str:
@@ -30,11 +33,11 @@ async def _extract_info(number: phonenumbers.PhoneNumber) -> str:
     :param number: номер телефона, который ввел пользователь
     :return: полную информацию со всех OSINT источников
     """
+    classes: Generator[PhoneParser, Any, None] = (getattr(international_numbers, attr)
+                                                  for attr in dir(international_numbers)
+                                                  if callable(getattr(international_numbers, attr)))
 
-    functions = (getattr(international_numbers, attr)
-                 for attr in dir(international_numbers) if callable(getattr(international_numbers, attr)))
-
-    results = await asyncio.gather(*(func(number) for func in functions))
+    results = await asyncio.gather(*(_class().parse(number) for _class in classes))
     return "\n\n".join(results)
 
 

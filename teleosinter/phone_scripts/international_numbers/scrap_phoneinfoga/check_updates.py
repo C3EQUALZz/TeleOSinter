@@ -6,16 +6,17 @@ https://github.com/la-deep-web/Phoneinfoga
 Ссылка 2 по поводу почему не while True:
 https://stackoverflow.com/questions/8867043/is-there-any-case-in-python-when-using-a-while-loop-would-be-best-practice
 """
-import json
+
 ########################################################################################################################
 import os
-from datetime import datetime
+import asyncio
 import pathlib
-import fake_useragent
+from datetime import datetime
+
+import aiofiles
 ########################################################################################################################
 import aiohttp
-import aiofiles
-import asyncio
+import fake_useragent
 
 ########################################################################################################################
 
